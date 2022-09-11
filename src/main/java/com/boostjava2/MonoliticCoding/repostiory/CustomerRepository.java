@@ -20,14 +20,15 @@ public interface CustomerRepository extends JpaRepository<Customer, Long > {
     * find + All +By + Variable (firstName)-> FirstName
      */
     List<Customer> findAllByAddress(String address);
-    //phoneNumber
-    List<Customer> findAllByPhoneNumber(String phoneNumber);
 
     //SQL like arama biçimi gibi çalışıyor
     List<Customer> findAllByFirstNameLike(String firstName);
 
     List<Customer> findByFirstNameStartsWithAndAddress(String firstName, String address);
 
+    /**
+     * ** Bugün kayıt olan kaç kişi var?
+     */
     List<Customer> findAllByCreatedDateGreaterThan(Long createdDate);
 
     /*
@@ -47,11 +48,11 @@ public interface CustomerRepository extends JpaRepository<Customer, Long > {
     @Query("select m from Customer m where m.email = ?1")
     Customer findByEmailAddress(String emailAddress);
 
-    @Query(value = "select * from Customer where email = ?1 and firstName like ?2", nativeQuery = true)
+    @Query(value = "select * from Customer where email = ?1 and firstname like ?2", nativeQuery = true)
     Customer findByEmailAddress(String emailAddress, String firstName);
 
     /*
-    *bu sorgulamayı hiç anlamadım
+    *bu sorgulamayı anlamadım
      */
     @Query("select u from Customer u where u.firstName = :firstname or u.lastName = :lastname")
     Customer findByAdOrLastName(@Param("firstName") String customerFirstName,

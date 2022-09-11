@@ -27,6 +27,7 @@ public class Customer {
     String phoneNumber;
     String address;
     String email;
+
     /*
     Veri tabanından veriyi kalıcı olarak silmek o bilgiye ulaşılmasını engelleyeceği için
     aktif pasif durumlarını belirlemek için kullandığımız değişken

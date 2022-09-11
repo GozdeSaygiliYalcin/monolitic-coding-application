@@ -1,6 +1,8 @@
 package com.boostjava2.MonoliticCoding.utility;
 
 import com.boostjava2.MonoliticCoding.repostiory.entity.Customer;
+import com.boostjava2.MonoliticCoding.repostiory.entity.Product;
+import com.boostjava2.MonoliticCoding.repostiory.entity.Sale;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,4 +40,84 @@ public class Datas {
         return customerList;
     }
 
+    private List<Product> productList;
+
+    public List<Product> getProductList() {
+        productList = new ArrayList<>();
+        productList.add(Product.builder()
+                .name("Bilgisayar")
+                .price(1000.0)
+                .brand("Asus")
+                .model("X555")
+                .stock(10)
+                .state(1)
+                .createddate(1662556017000l)
+                .build());
+        productList.add(Product.builder()
+                .name("Bilgisayar")
+                .price(2000.0)
+                .brand("Asus")
+                .model("X322")
+                .stock(10)
+                .state(1)
+                .createddate(1662556017000l)
+                .build());
+        productList.add(Product.builder()
+                .name("Bilgisayar")
+                .price(3000.0)
+                .brand("Asus")
+                .model("CX33")
+                .stock(10)
+                .state(1)
+                .createddate(1662556017000l)
+                .build());
+        return productList;
+
+    }
+    private List<Sale> saleList;
+
+    public List<Sale> getSaleList(){
+        saleList = new ArrayList<>();
+        saleList.add(Sale.builder()
+                .amount(1)
+                .price(1000.0)
+                .customerId(105l)
+                .productId(1l)
+                .state(1)
+                .createddate(1662556017000l)
+                .build());
+        saleList.add(Sale.builder()
+                .amount(1)
+                .price(2000.0)
+                .customerId(115l)
+                .productId(2l)
+                .state(1)
+                .createddate(1662556017000l)
+                .build());
+        saleList.add(Sale.builder()
+                .amount(1)
+                .price(3000.0)
+                .customerId(119l)
+                .productId(3l)
+                .state(1)
+                .createddate(1662556017000l)
+                .build());
+        saleList.add(Sale.builder()
+                .amount(1)
+                .price(3000.0)
+                .customerId(119l)
+                .productId(2l)
+                .state(1)
+                .createddate(1662556017000l)
+                .build());
+        saleList.add(Sale.builder()
+                .amount(1)
+                .price(3000.0)
+                .customerId(101l)
+                .productId(3l)
+                .state(1)
+                .createddate(1662556017000l)
+                .build());
+        return saleList;
+    }
 }

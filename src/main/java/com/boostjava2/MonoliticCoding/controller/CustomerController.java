@@ -46,7 +46,7 @@ public class CustomerController {
         String firstName = "%a%";
         return ResponseEntity.ok(customerService.findAllByFirstNameLike(firstName));
     }
-    @GetMapping("/getallbyadandadres")
+    @GetMapping("/getallbynameandadress")
     public ResponseEntity<List<Customer>> findByFirstNameStartsWithAndAddressStartsWith(){
         String firstName = "A";
         String address = "A";

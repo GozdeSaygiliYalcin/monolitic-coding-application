@@ -13,5 +13,7 @@ public class ProductService extends ServiceManager<Product, Long> {
         super(productRepository);
         this.productRepository = productRepository;
     }
+
+
 }
 

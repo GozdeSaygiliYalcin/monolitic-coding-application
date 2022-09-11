@@ -9,6 +9,5 @@ public interface IServices<T, ID> {
    void delete(T entity);
    void deleteById(ID id);
    T findById(ID id);
-
    List<T> findAll();
 }
