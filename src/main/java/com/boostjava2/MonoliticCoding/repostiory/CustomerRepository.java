@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NamedQuery;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -44,19 +44,21 @@ public interface CustomerRepository extends JpaRepository<Customer, Long > {
      */
     List<Customer> findAllByCreatedDateBetween(Long start, Long end);
     List<Customer> findAllByAddressAndCreatedDateBetween(String address, Long start, Long end);
-
+    /*
     @Query("select m from Customer m where m.email = ?1")
     Customer findByEmailAddress(String emailAddress);
 
-    @Query(value = "select * from Customer where email = ?1 and firstname like ?2", nativeQuery = true)
+    @Query(value = "select * from Customer where email = ?1 and first_name like ?2", nativeQuery = true)
     Customer findByEmailAddress(String emailAddress, String firstName);
 
     /*
     *bu sorgulamayı anlamadım
      */
+    /*
     @Query("select u from Customer u where u.firstName = :firstname or u.lastName = :lastname")
     Customer findByAdOrLastName(@Param("firstName") String customerFirstName,
                             @Param("lastName") String customerLastName);
 
+    */
     Customer findByEmail(String email);
 }

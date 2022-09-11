@@ -79,7 +79,7 @@ private final ProductRepository productRepository;
                                         .toLocalDate()
                         )
                         .productName(product.get().getName())
-                        .customerName(customer.get().getName())
+                        .customerName(customer.get().getFirstName())
                         .build());
             } else {
                 /**

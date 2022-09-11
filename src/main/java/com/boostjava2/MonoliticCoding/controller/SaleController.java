@@ -2,8 +2,12 @@ package com.boostjava2.MonoliticCoding.controller;
 
 import com.boostjava2.MonoliticCoding.dto.request.FindByIdRequestDto;
 import com.boostjava2.MonoliticCoding.dto.response.GetAllSaleResponseDto;
+import com.boostjava2.MonoliticCoding.repostiory.ProductRepository;
+import com.boostjava2.MonoliticCoding.repostiory.SaleRepository;
 import com.boostjava2.MonoliticCoding.repostiory.entity.Sale;
 import com.boostjava2.MonoliticCoding.service.CustomerService;
+import com.boostjava2.MonoliticCoding.service.ProductService;
+import com.boostjava2.MonoliticCoding.service.SaleService;
 import com.boostjava2.MonoliticCoding.utility.Datas;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +23,7 @@ import java.util.Optional;
 @RequestMapping("/sale")
 @RequiredArgsConstructor
 public class SaleController {
-    private final CustomerService customerService;
+    private final SaleService saleService;
 
     @GetMapping("/savealldemo")
     public ResponseEntity<String> saveAllDemo(){
@@ -33,9 +37,9 @@ public class SaleController {
 
     @PostMapping("/findbyid")
     public ResponseEntity<Sale> findById(FindByIdRequestDto dto){
-        Optional<Sale> satis = saleService.findById(dto);
+        Optional<Sale> sale = saleService.findById(dto);
         if(sale.isPresent()){
-            return ResponseEntity.ok(satis.get());
+            return ResponseEntity.ok(sale.get());
         }
         return ResponseEntity.ok(new Sale());
     }

@@ -21,7 +21,7 @@ public class Customer {
             allocationSize = 5, initialValue = 100)
     @GeneratedValue(generator = "customer_table_seq_id")
     Long id;
-    @Column(length = 300, nullable = false)
+    @Column( name = "first_name", length = 300, nullable = false)
     String firstName;
     String lastName;
     String phoneNumber;
