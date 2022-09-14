@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satış İşlemi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+</head>
+<body>
+<div class="container-fluid" style="height: 50px; background-color: #B1B2FF;">
+</div>
+<!-- YENİ ÜRÜN KAYDETME -->
+<div class="container">
+    <div class="row">
+        <form action="save" method="post">
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label class="form-label">Müşteri Adı</label>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="customerId">
+                            <option value="-1" selected>Müşteri Seçiniz</option>
+                            <option th:each="customer : ${customerlist}"
+                                    th:value="${customer.id}"
+                                    th:text="${customer.firstName + ' '+ customer.lastName}"/>
+                        </select>
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Ürün Adı</label>
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="productId">
+                    <option value="-1" selected>Ürün Seçiniz</option>
+                    <option th:each="product : ${productlist}"
+                            th:value="${product.id}"
+                            th:text="${product.name}"/>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Adet</label>
+                <input type="text" class="form-control" name="amount">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fiyat</label>
+                <input type="text" class="form-control" name="price">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Toplam Fiyat</label>
+                <input type="text" class="form-control" name="totalPrice">
+            </div>
+
+        </div>
+            <div class="col-12 mb-2">
+                <div class="d-grid gap-2 mt-3">
+                    <button type="submit" class="btn btn-success btn-block">Yeni Kayıt</button>
+                    <button type="submit" class="btn btn-danger">Kaydet</button>
+
+                </div>
+            </div>
+        </form>
+        <!--         TABLONUN YÜKLENMESİ       -->
+    </div>
+    <div class="row">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr class="table-primary">
+                <th>Id</th>
+                <th>Müşteri Adı</th>
+                <th>Ürün Adı</th>
+                <th>Adet</th>
+                <th>Fiyat</th>
+                <th>Toplam Fiyat</th>
+                <th>Tarih</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sale,inter :${salelist}">
+                <td><label th:text="${sale.id}"/></td>
+                <td><label th:text="${sale.customerName}"/></td>
+                <td><label th:text="${sale.productName}"/></td>
+                <td><label th:text="${sale.amount}"/></td>
+                <td><label th:text="${sale.price +'₺'}"/></td>
+                <td><label th:text="${sale.totalPrice+'₺'}"/></td>
+                <td><label th:text="${sale.createdDate}"/></td>
+                <td>
+                    <a href="#"
+                       th:attr="onclick = |duzenle(${sale.id},${sale.customerId},${sale.productId},${sale.amount},${sale.price},${sale.totalPrice})|"
+                       class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-duzenle">
+                        <i class="fa fa-pen-square"></i>
+                    </a>
+                    <a href="#" class="btn btn-danger" th:attr="onclick = |kayitsil(${sale.id})|">
+                        <i class="fa fa-eraser"></i>
+                    </a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal-duzenle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="update" method="post">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Satış Düzenle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-12">
+                    <input type="text" name="id" id="txteditid" hidden>
+                    <div class="mb-3">
+                        <label class="form-label">Müşteri Adı</label>
+                        <select id="txteditmusteri" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="customerId">
+                            <option value="-1" selected>Müşteri Seçiniz</option>
+                            <option th:each="customer : ${customerlist}" th:value="${customer.id}" th:text="${customer.firstName + ' '+ customer.lastName}"/>
+                        </select>
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Ürün Adı</label>
+                        <select id="txtediturun" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="productId">
+                            <option value="-1" selected>Ürün Seçiniz</option>
+                            <option th:each="product : ${productlist}" th:value="${product.id}" th:text="${product.name+ ' brand: '+ product.brand+ ' model: '+product.model}"/>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Adet</label>
+                        <input id="txteditadet" type="text" class="form-control" name="amount">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Fiyat</label>
+                        <input id="txteditfiyat" type="text" class="form-control" name="price">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Toplam Fiyat</label>
+                        <input id="txtedittoplamfiyat" type="text" class="form-control" name="totalPrice">
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!--  GİZLİ FORM İLE SİLME İŞLEMLERİ    -->
+<form action="delete" method="post" hidden>
+    <input type="text" name="id" id="txtdeleteid" >
+    <button id="btndelete" type="submit" class="btn btn-danger">Kaydet</button>
+</form>
+<!--  JAVASCRIPT    -->
+<script>
+    function kayitsil(id){
+        Swal.fire({
+            title: 'Emin misiniz?',
+            text: "Seçtiğiniz kayıt silinecektir.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet, sil!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("txtdeleteid").value=id;
+                Swal.fire(
+                    'Silindi!',
+                    'Dur ne yaptın :(',
+                    'success'
+                ).then(()=>{
+                    document.getElementById('btndelete').click();
+                })
+            }
+        })
+    }
+    function kayitsilFetch(id){
+        Swal.fire({
+            title: 'Emin misiniz?',
+            text: "Seçtiğiniz kayıt silinecektir.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet, sil!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // silme işlemini onayladığımız yer
+                fetch('delete?id='+id,{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+
+                }).then(()=>{
+                    Swal.fire(
+                        'Silindi!',
+                        'Dur ne yaptın :(',
+                        'success'
+                    ).then(()=>{
+                        location.reload();
+                    })
+
+                })
+            }
+
+        })
+    }
+    function duzenle(id, customerId, productId, amount, price, totalPrice) {
+    document.getElementById("txteditid").value=id;
+    document.getElementById("txteditmusteri").value=customerId;
+    document.getElementById("txtediturun").value=productId;
+    document.getElementById('txteditadet').value=amount;
+    document.getElementById('txteditfiyat').value=price;
+    document.getElementById('txtedittoplamfiyat').value=totalPrice;
+    }
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+</body>
+</html>
