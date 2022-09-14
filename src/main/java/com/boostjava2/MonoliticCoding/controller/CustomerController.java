@@ -1,5 +1,6 @@
 package com.boostjava2.MonoliticCoding.controller;
 
+import static com.boostjava2.MonoliticCoding.constants.Url.*;
 import com.boostjava2.MonoliticCoding.repostiory.entity.Customer;
 import com.boostjava2.MonoliticCoding.service.CustomerService;
 import com.boostjava2.MonoliticCoding.utility.Datas;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping(VERSION + API + CUSTOMER)
 @RequiredArgsConstructor
 public class CustomerController {
 
@@ -23,7 +24,7 @@ public class CustomerController {
      * localhost:9090/musteri/save
      * burada mapleme yapmayı sağlıyor
      */
-    @GetMapping("/saveall")
+    @GetMapping(SAVEALL)
     public ResponseEntity<Void> saveAll() {
         try {
             customerService.saveAll(new Datas().getCustomerList());
@@ -32,32 +33,32 @@ public class CustomerController {
         }
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/getall")
+    @GetMapping(FINDALL)
     public ResponseEntity<List<Customer>> findAll(){
         return ResponseEntity.ok(customerService.findAll());
     }
-    @GetMapping("/getallbyaddress")
+    @GetMapping(GETBYADDRESS)
     public ResponseEntity<List<Customer>> findAllByAddress(){
         String address = "İstanbul";
         return ResponseEntity.ok(customerService.findAllByAddress(address));
     }
-    @GetMapping("/getallbyfirstname")
+    @GetMapping(GETBYFIRSTNAMELIKE)
     public ResponseEntity<List<Customer>> findAllByFirstNameLike() {
         String firstName = "%a%";
         return ResponseEntity.ok(customerService.findAllByFirstNameLike(firstName));
     }
-    @GetMapping("/getallbynameandadress")
+    @GetMapping(GETBYFIRSTNAMEANDADDRESS)
     public ResponseEntity<List<Customer>> findByFirstNameStartsWithAndAddressStartsWith(){
         String firstName = "A";
         String address = "A";
         return ResponseEntity.ok(customerService.findByFirstNameStartsWithAndAddressStartsWith(firstName, address));
     }
-    @GetMapping("/getallbycreateddate")
+    @GetMapping(GETBYCREATEDDATE)
     public ResponseEntity<List<Customer>> findAllByCreatedDateGreaterThan() {
         Long createdDate = 166249800000L; // 08.09.2022 00:00:00
         return ResponseEntity.ok(customerService.findAllByCreatedDateGreaterThan(createdDate));
     }
-    @GetMapping("/getallbyname")
+    @GetMapping(GETBYFIRSTNAME)
     public ResponseEntity<Object> findByFirstName() {
         String firstName = "Ali";
         Optional<Customer> customer = customerService.findByFirstName(firstName);
@@ -66,7 +67,7 @@ public class CustomerController {
 
         return ResponseEntity.badRequest().build();
     }
-    @GetMapping("/getallbynamedesc")
+    @GetMapping(GETBYFIRSTNAMEDESC)
     public ResponseEntity<Object> findByAdDesc(){
         String ad = "Ali";
         Optional<Customer> customer = customerService.findTopOptionalByAdOOrderByIdDesc(ad);

@@ -15,6 +15,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SaleService extends ServiceManager<Sale, Long> {
@@ -37,10 +38,14 @@ private final ProductRepository productRepository;
         }
         return Optional.empty();
     }
-    public List<GetAllSaleResponseDto> findAllDto() {
+
+    public List<GetAllSaleResponseDto> findAllDto(String customerName){
+        return findAllDto().stream().filter(x-> x.getCustomerName().contains(customerName)).collect(Collectors.toList());
+    }
         /**
          * Satis tablosundaki tüm kayıtları alıyoruz.
          */
+    public List<GetAllSaleResponseDto> findAllDto(){
         List<Sale> saleList = saleRepository.findAll();
         /**
          * Satış tablosundan alacağımız datayı düzenleyerek bir DTO objesi olarak
@@ -53,7 +58,7 @@ private final ProductRepository productRepository;
          */
         saleList.forEach(x -> {
             /**
-             * Her bir satıştaki müşteri id için müşteriyi VT nından soorguluyoruz.
+             * Her bir satıştaki müşteri id için müşteriyi VT nından sorguluyoruz.
              */
             Optional<Customer> customer = customerRepository.findById(x.getCustomerId());
             /**
@@ -75,11 +80,13 @@ private final ProductRepository productRepository;
                         .totalPrice(x.getPrice() * x.getAmount())
                         .createdDate(
                                 Instant.ofEpochMilli(x.getCreateddate())
-                                        .atZone(ZoneId.systemDefault())
+                                        .atZone(java.time.ZoneId.systemDefault())
                                         .toLocalDate()
                         )
-                        .productName(product.get().getName())
+                        .productName(product.get().getName() + "- marka: " + product.get().getBrand() +"model: " +product.get().getModel())
                         .customerName(customer.get().getFirstName())
+                                .customerId(customer.get().getId())
+                                .productId(product.get().getId())
                         .build());
             } else {
                 /**
@@ -91,5 +98,23 @@ private final ProductRepository productRepository;
         });
 
         return responseDtoList;
+    }
+    public void save(Long customerId, Long productId, Integer amount, Double price) {
+        saleRepository.save(Sale.builder()
+                .customerId(customerId)
+                .productId(productId)
+                .amount(amount)
+                .price(price)
+                .createddate(System.currentTimeMillis())
+                .build());
+    }
+    public void update(Long id, Long customerId, Long productId, Integer amount, Double price) {
+        Sale sale = saleRepository.findById(id).get();
+        sale.setCustomerId(customerId);
+        sale.setProductId(productId);
+        sale.setAmount(amount);
+        sale.setPrice(price);
+        sale.setUpdateddate(System.currentTimeMillis());
+        saleRepository.save(sale);
     }
 }

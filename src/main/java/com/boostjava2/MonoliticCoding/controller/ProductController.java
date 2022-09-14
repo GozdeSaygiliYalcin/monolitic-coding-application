@@ -1,5 +1,6 @@
 package com.boostjava2.MonoliticCoding.controller;
 
+import static com.boostjava2.MonoliticCoding.constants.Url.*;
 import com.boostjava2.MonoliticCoding.dto.request.ProductSaveRequestDto;
 import com.boostjava2.MonoliticCoding.repostiory.entity.Product;
 import com.boostjava2.MonoliticCoding.service.ProductService;
@@ -12,23 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping(VERSION + API + PRODUCT)
 @RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
 
-    @GetMapping("/savealldemo")
+    @GetMapping(SAVEALL)
     public ResponseEntity<String> saveAllDemo(){
         productService.saveAll(new Datas().getProductList());
         return ResponseEntity.ok("Kayıtlar eklendi");
     }
-    @PostMapping("/save")
+    @PostMapping(SAVE)
     public ResponseEntity<Product> save(Product product){
         return ResponseEntity.ok(productService.save(product));
     }
 
-    @PostMapping("/saveparam")
+    @PostMapping(SAVEPARAM)
     public ResponseEntity<Product> saveParameter(String name,String brand,
                                               String model,Double price){
         Product product = Product.builder()
@@ -39,7 +40,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.save(product));
     }
 
-    @PostMapping("/saveparamdto")
+    @PostMapping(SAVEPARAMDTO)
     public ResponseEntity<Product> saveParamDto(ProductSaveRequestDto dto){
         return ResponseEntity.ok(productService.saveMapper(dto));
     }

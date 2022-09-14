@@ -8,6 +8,10 @@ spring:
     password: 2211223
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
 
+myapplication:
+  myinfo:
+    info: "This is an information"
+    title: "This is a title"

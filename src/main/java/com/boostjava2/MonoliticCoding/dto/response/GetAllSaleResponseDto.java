@@ -17,6 +17,8 @@ import java.time.LocalDate;
 public class GetAllSaleResponseDto {
 
     private Long id;
+    private Long customerId;
+    private Long productId;
     private String customerName;
     private String productName;
     private int amount;

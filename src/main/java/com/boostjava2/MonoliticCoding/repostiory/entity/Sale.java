@@ -20,7 +20,7 @@ public class Sale {
     Long id;
     Long customerId;
     Long productId;
-    int amount;
+    Integer amount;
     Double price;
     int state;
     Long createddate;

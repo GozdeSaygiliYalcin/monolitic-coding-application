@@ -72,7 +72,6 @@ public class Datas {
                 .createddate(1662556017000l)
                 .build());
         return productList;
-
     }
     private List<Sale> saleList;
 
@@ -81,7 +80,7 @@ public class Datas {
         saleList.add(Sale.builder()
                 .amount(1)
                 .price(1000.0)
-                .customerId(105l)
+                .customerId(100l)
                 .productId(1l)
                 .state(1)
                 .createddate(1662556017000l)
@@ -89,7 +88,7 @@ public class Datas {
         saleList.add(Sale.builder()
                 .amount(1)
                 .price(2000.0)
-                .customerId(115l)
+                .customerId(101l)
                 .productId(2l)
                 .state(1)
                 .createddate(1662556017000l)
@@ -97,7 +96,7 @@ public class Datas {
         saleList.add(Sale.builder()
                 .amount(1)
                 .price(3000.0)
-                .customerId(119l)
+                .customerId(102l)
                 .productId(3l)
                 .state(1)
                 .createddate(1662556017000l)
@@ -105,7 +104,7 @@ public class Datas {
         saleList.add(Sale.builder()
                 .amount(1)
                 .price(3000.0)
-                .customerId(119l)
+                .customerId(103l)
                 .productId(2l)
                 .state(1)
                 .createddate(1662556017000l)
@@ -113,7 +112,7 @@ public class Datas {
         saleList.add(Sale.builder()
                 .amount(1)
                 .price(3000.0)
-                .customerId(101l)
+                .customerId(103l)
                 .productId(3l)
                 .state(1)
                 .createddate(1662556017000l)

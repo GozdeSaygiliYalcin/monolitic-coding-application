@@ -16,12 +16,7 @@ public class ProductService extends ServiceManager<Product, Long> {
         this.productRepository = productRepository;
     }
     public Product save(ProductSaveRequestDto dto){
-        Product product = Product.builder()
-                .price(dto.getPrice())
-                .brand(dto.getBrand())
-                .model(dto.getModel())
-                .name(dto.getName()).build();
-        return productRepository.save(product);
+        return productRepository.save(ProductMapper.INSTANCE.toProduct(dto));
     }
 
     public Product saveMapper(ProductSaveRequestDto dto){
