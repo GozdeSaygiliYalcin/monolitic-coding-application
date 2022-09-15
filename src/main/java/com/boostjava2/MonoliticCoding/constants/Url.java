@@ -28,6 +28,8 @@ public class Url {
     public static final String GETBYADANDADDRESS = "/getbyadandaddress";
     public static final String GETBYCREATEDDATE = "/getbycreateddate";
     public static final String GETBYFIRSTNAMEDESC = "/getbyfirstnamedesc";
+
+    public static final String FINDBYFIRSTNAME = "/findbyfirstname";
     /**
      * API -> Satış Controller
      */

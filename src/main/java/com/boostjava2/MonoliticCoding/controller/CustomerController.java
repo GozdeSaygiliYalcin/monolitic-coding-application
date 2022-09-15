@@ -1,11 +1,15 @@
 package com.boostjava2.MonoliticCoding.controller;
 
 import static com.boostjava2.MonoliticCoding.constants.Url.*;
+
+import com.boostjava2.MonoliticCoding.exception.ErrorType;
+import com.boostjava2.MonoliticCoding.exception.MonoliticManagerException;
 import com.boostjava2.MonoliticCoding.repostiory.entity.Customer;
 import com.boostjava2.MonoliticCoding.service.CustomerService;
 import com.boostjava2.MonoliticCoding.utility.Datas;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +24,16 @@ import java.util.Optional;
 public class CustomerController {
 
     private final CustomerService customerService;
+
+    @CrossOrigin
+    @GetMapping(FINDBYFIRSTNAME)
+    public ResponseEntity<Customer> getCustomerByFirstName(String firstName) {
+        Optional<Customer> result = customerService.findByFirstName(firstName);
+        if(result.isPresent())
+            return ResponseEntity.ok(result.get());
+        else
+            throw new MonoliticManagerException(ErrorType.MUSTERI_BULUNAMADI);
+    }
     /**
      * localhost:9090/musteri/save
      * burada mapleme yapmayı sağlıyor
